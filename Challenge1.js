@@ -62,17 +62,22 @@ const message = holidays.hasOwnProperty(futureId)
     : `ID ${futureId} not created yet`;
 
 console.log(message);
+
   
 
+const copied = { ...holidays[christmas]}; //shallow copies object without altering stored values
+copied.name = 'X-mas Day';
+const correctDate = new Date(copied.date);  //targets christmas date 
+correctDate.setHours(0,0,0,0);
+correctDate.setMinutes(0);
 
-copied = holidays.christmas
-copied = { name: 'X-mas Day' }
-correctDate = copied.date
-correctDate.hours = 0
-correctDate.minutes = 0
-isEarlier = copied.date < holidays[6].date
+const isEarlier = correctDate.getTime() < holidays[6].date.getTime();
 console.log('New date is earlier:', isEarlier)
-if (isEarlier) copied.date = correctDate
+
+if (isEarlier) { 
+    copied.date = correctDate;
+};
+
 console.log('ID change:', holidays[christmas].id != copied.id || copied.id)
 console.log('Name change:', holidays[christmas].name != copied.name || copied.name)
 console.log('Date change:', holidays[christmas].date != copied.date || copied.date)
